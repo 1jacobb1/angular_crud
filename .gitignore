@@ -1,0 +1,29 @@
+lib/Cake/
+app/config/
+app/tmp/*
+teacher/tmp/*
+user/tmp/*
+plugins/*
+vendors/*
+tmp/
+config/
+
+# IDE and editor specific files #
+#################################
+/nbproject
+.idea
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+teacher/tmp/cache/
+user/tmp/cache/
+user/tmp/cache/*
+teacher/tmp/cache/*
