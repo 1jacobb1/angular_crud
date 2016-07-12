@@ -34,8 +34,6 @@ myApp
 				var success = response.data.success;
 				if (success){
 					$scope.products.push(response.data.content);
-				} else {
-					console.warn("adding failed");
 				}
 			})
 			.catch(function(err){
@@ -116,5 +114,13 @@ myApp
 				console.warn("Save Product Error: "+error);
 			});
 		}
+	}
+
+	$scope.cancelUpdateProduct = function(){
+		$scope.productName = "";
+		$scope.productDescription = "";
+		$scope.productQuantity = "";
+		$scope.isEditProduct = false;
+		$scope.isNewProduct = true;
 	}
 }]);

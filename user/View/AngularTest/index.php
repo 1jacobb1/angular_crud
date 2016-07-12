@@ -18,6 +18,7 @@
 					<input min="0" type="number" placeholder="Quantity" class="form-control form-input" ng-model="productQuantity" required>
 					<button class="btn" ng-click="addProduct()" ng-disabled="formProduct.$invalid" ng-show="isNewProduct"><i class="icon-plus"></i>Add</button>
 					<button class="btn" ng-click="saveProduct()" ng-disabled="formProduct.$invalid" ng-show="isEditProduct"><i class="icon-plus"></i>Save</button>
+					<button class="btn" ng-click="cancelUpdateProduct()" ng-disabled="formProduct.$invalid" ng-show="isEditProduct"><i class="icon-plus"></i>Cancel</button>
 				</form>
 			</div>
 		</div>
