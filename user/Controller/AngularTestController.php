@@ -61,4 +61,22 @@ class AngularTestController extends AppController {
 		}
 		return json_encode($response);
 	}
+
+	public function saveProduct(){
+		$this->autoRender = false;
+		$response = array('saved' => false);
+		if ($this->request->is('post')){
+			$data = $this->request->data;
+			$this->Product->id = $data['id'];
+			$this->Product->set(array(
+				'name' => $data['name'],
+				'description' => $data['description'],
+				'quantity' => $data['quantity']
+			));
+			if ($this->Product->save()){
+				$response['saved'] = true;
+			}
+		}
+		return json_encode($response);
+	}
 }

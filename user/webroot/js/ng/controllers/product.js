@@ -2,6 +2,8 @@ myApp
 .controller('product', ['$scope', '$compile', '$http', '$rootScope', function($scope, $compile, $http, $rootScope){
 
 	$scope.products = [];
+	$scope.isNewProduct = true;
+	$scope.isEditProduct = false;
 
 	$scope.getProducts = function(){
 		$http({
@@ -56,7 +58,7 @@ myApp
 				} else {
 					var idx = $rootScope.getIndex({id: product.id}, $scope.products);
 					if (idx > -1){
-						// index exists
+						// index exists, delete current index
 						$scope.products.splice(idx,1);
 					}
 				}
@@ -69,7 +71,50 @@ myApp
 
 	$scope.editProduct = function(product){
 		if (product){
-			var idx = $rootScope.getIndex({id: product.id}, $scope.products);
+			$scope.isEditProduct = true;
+			$scope.isNewProduct = false;
+			$scope.productName = product.name;
+			$scope.productDescription = product.description;
+			$scope.productId = product.id;
+			// convert to int
+			product.quantity = product.quantity ? parseInt(product.quantity) : 0;
+
+			$scope.productQuantity = product.quantity;
+		}
+	};
+
+	$scope.saveProduct = function(){
+		if ($scope.productName && $scope.productDescription && $scope.productQuantity){
+			$http({
+				method: "POST",
+				url: "/user/angularTest/saveProduct",
+				data: {
+					id: $scope.productId,
+					name: $scope.productName,
+					description: $scope.productDescription,
+					quantity: $scope.productQuantity
+				}
+			})
+			.then(function(response){
+				if (response.data.saved) {
+					var idx = $rootScope.getIndex({id: $scope.productId}, $scope.products);
+					// update product in array
+					$scope.products[idx].name = $scope.productName;
+					$scope.products[idx].description = $scope.productDescription;
+					$scope.products[idx].quantity = $scope.productQuantity;
+					// clear product input
+					$scope.productName = "";
+					$scope.productDescription = "";
+					$scope.productQuantity = "";
+					// hide edit product form
+					$scope.isEditProduct = false;
+					// show new product form
+					$scope.isNewProduct = true;
+				}
+			})
+			.catch(function(error){
+				console.warn("Save Product Error: "+error);
+			});
 		}
 	}
 }]);

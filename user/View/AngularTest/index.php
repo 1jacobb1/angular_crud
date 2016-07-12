@@ -10,11 +10,14 @@
 			</form>
 			<br>
 			<div>
-				<form class="form" name="formAddProduct">
+
+				<form class="form" name="formProduct">
+					<input type="hidden" ng-model="productId" ng-show="isEditProduct">
 					<input type="text" placeholder="Name" class="form-control form-input" ng-model="productName" required>
 					<textarea class="form-control" placeholder="Description" ng-model="productDescription" required></textarea>
 					<input min="0" type="number" placeholder="Quantity" class="form-control form-input" ng-model="productQuantity" required>
-					<button class="btn" ng-click="addProduct()" ng-disabled="formAddProduct.$invalid" ><i class="icon-plus"></i>Add</button>
+					<button class="btn" ng-click="addProduct()" ng-disabled="formProduct.$invalid" ng-show="isNewProduct"><i class="icon-plus"></i>Add</button>
+					<button class="btn" ng-click="saveProduct()" ng-disabled="formProduct.$invalid" ng-show="isEditProduct"><i class="icon-plus"></i>Save</button>
 				</form>
 			</div>
 		</div>
